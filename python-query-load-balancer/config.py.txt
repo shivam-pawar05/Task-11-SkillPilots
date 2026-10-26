@@ -1,0 +1,18 @@
+import os
+from dotenv import load_dotenv
+
+load_dotenv()
+
+
+def get_database_config(prefix):
+    return {
+        "host": os.getenv(f"{prefix}_HOST", "127.0.0.1"),
+        "port": int(os.getenv(f"{prefix}_PORT", "3306")),
+        "username": os.getenv("DB_USER", "app_user"),
+        "password": os.getenv("DB_PASSWORD", ""),
+        "database": os.getenv("DB_NAME", "load_balancer_demo"),
+    }
+
+
+MASTER = get_database_config("MASTER")
+REPLICA = get_database_config("REPLICA")
